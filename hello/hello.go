@@ -1,20 +1,37 @@
-// Hello world
+// Hello world, can accept a name to personalize, and a language for the greeting
+// Default language is English if language unavailable
 package main
 
 import (
 	"fmt"
 )
 
-const helloPrefix = "Hello, "
+const (
+	spanish = "Spanish"
+	french = "French"
 
-func Hello(name string) string {
+	englishPrefix = "Hello, "
+	spanishPrefix = "Hola, "
+	frenchPrefix = "Bonjour, "
+)
+
+func Hello(name, lang string) string {
 	if name == "" {
 		name = "world!"
 	}
-	
-	return helloPrefix + name
+
+	prefix := englishPrefix
+
+	switch lang {
+	case spanish:
+		prefix = spanishPrefix
+	case french:
+		prefix = frenchPrefix
+	}
+
+	return prefix + name
 }
 
 func main() {
-	fmt.Println(Hello("jim"))
+	fmt.Println(Hello("", ""))
 }

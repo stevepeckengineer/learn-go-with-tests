@@ -5,13 +5,13 @@ import "testing"
 
 func TestHello(t *testing.T) {
 	t.Run("Saying hello with name", func(t *testing.T){
-		got := Hello("Chris")
+		got := Hello("Chris", "")
 		want := "Hello, Chris"
 		assertEqual(t, got, want)
 	})
 
 	t.Run("Saying 'hello, world!' if no name", func(t *testing.T){
-		got := Hello("")
+		got := Hello("", "")
 		want := "Hello, world!"
 		assertEqual(t, got, want)
 	})
@@ -23,7 +23,7 @@ func TestHello(t *testing.T) {
 	})
 
 	t.Run("In French", func(t *testing.T){
-		got := Hello("", "Spanish")
+		got := Hello("", "French")
 		want := "Bonjour, world!"
 		assertEqual(t, got, want)
 	})
