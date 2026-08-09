@@ -8,11 +8,11 @@ import (
 
 const (
 	spanish = "Spanish"
-	french = "French"
+	french  = "French"
 
 	englishPrefix = "Hello, "
 	spanishPrefix = "Hola, "
-	frenchPrefix = "Bonjour, "
+	frenchPrefix  = "Bonjour, "
 )
 
 func Hello(name, lang string) string {
@@ -20,16 +20,20 @@ func Hello(name, lang string) string {
 		name = "world!"
 	}
 
-	prefix := englishPrefix
+	return greetingPrefix(lang) + name
+}
 
+// set greeting prefix by supported language or default to english
+func greetingPrefix(lang string) (prefix string) {
 	switch lang {
 	case spanish:
 		prefix = spanishPrefix
 	case french:
 		prefix = frenchPrefix
+	default:
+		prefix = englishPrefix
 	}
-
-	return prefix + name
+	return
 }
 
 func main() {
