@@ -10,9 +10,21 @@ func TestHello(t *testing.T) {
 		assertEqual(t, got, want)
 	})
 
-	t.Run("Saying hello, world if no name", func(t *testing.T){
+	t.Run("Saying 'hello, world!' if no name", func(t *testing.T){
 		got := Hello("")
 		want := "Hello, world!"
+		assertEqual(t, got, want)
+	})
+
+	t.Run("In Spanish", func(t *testing.T){
+		got := Hello("", "Spanish")
+		want := "Hola, world!"
+		assertEqual(t, got, want)
+	})
+
+	t.Run("In French", func(t *testing.T){
+		got := Hello("", "Spanish")
+		want := "Bonjour, world!"
 		assertEqual(t, got, want)
 	})
 }
