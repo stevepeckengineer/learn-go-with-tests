@@ -10,3 +10,11 @@ func Sum(nums []int) int {
 
 	return solution
 }
+
+// takes multiple array slices, sums each one, returns each sum in a slice
+func SumAll(slicesToSum ...[]int) (solution []int) {
+	for _, nums := range slicesToSum {
+		solution = append(solution, Sum(nums))
+	}
+	return
+}
