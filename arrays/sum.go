@@ -4,8 +4,8 @@ package sum
 func Sum(nums [5]int) int {
 	var solution int
 
-	for i := range len(nums) {
-		solution += nums[i]
+	for _, num := range nums {
+		solution += num
 	}
 
 	return solution
