@@ -1,5 +1,12 @@
+// summing with for loops
 package sum
 
-func Sum(numbers [5]int) int {
-	return 0
+func Sum(nums [5]int) int {
+	var solution int
+
+	for i := range len(nums) {
+		solution += nums[i]
+	}
+
+	return solution
 }
