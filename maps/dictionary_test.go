@@ -22,14 +22,50 @@ func TestDictionary(t *testing.T) {
 
 	t.Run("Add word", func(t *testing.T) {
 		dictionary := Dictionary{}
-		dictionary.Add("test", "this is just a test")
+		word, definition := "test", "this is just a test"
 
-		want := "this is just a test"
-		got, err := dictionary.Search("test")
-		
+		err := dictionary.Add(word, definition)
 		assertNoError(t, err)
-		assertStrings(t, got, want)
+		assertDefinition(t, dictionary, word, definition)
 	})
+
+	t.Run("word already in dictionary", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Add(word, "new test")
+		assertError(t, err, ErrWordExists)
+		assertDefinition(t, dictionary, word, definition)
+	})
+
+	t.Run("update existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		newDefinition := "testing again"
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Update(word, newDefinition)
+		assertNoError(t, err)
+		assertDefinition(t, dictionary, word, newDefinition)
+	})
+
+	t.Run("cannot update word if not in dictionary", func(t *testing.T) {
+		dictionary := Dictionary{}
+		word := "test"
+		newDefinition := "testing again"
+
+		err := dictionary.Update(word, newDefinition)
+		assertError(t, err, ErrMissingWord)
+		_, err = dictionary.Search(word)
+		assertError(t, err, ErrMissingWord)
+	})
+}
+
+func assertDefinition(t testing.TB, dict Dictionary, word, definition string) {
+	got, err := dict.Search(word)
+	assertNoError(t, err)
+	assertStrings(t, got, definition)
 }
 
 func assertStrings(t testing.TB, got, want string) {
@@ -44,7 +80,7 @@ func assertNoError(t testing.TB, err error) {
 	t.Helper()
 
 	if err != nil {
-		t.Errorf("wanted no error, got %q", err)
+		t.Fatal("got unexpected error: ", err)
 	}
 }
 
