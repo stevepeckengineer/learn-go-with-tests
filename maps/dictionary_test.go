@@ -60,6 +60,17 @@ func TestDictionary(t *testing.T) {
 		_, err = dictionary.Search(word)
 		assertError(t, err, ErrMissingWord)
 	})
+
+	t.Run("delete", func(t *testing.T) {
+		word, definition := "test", "this is just a test"
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Delete(word)
+		assertNoError(t, err)
+		
+		_, err = dictionary.Search(word)
+		assertError(t, err, ErrMissingWord)
+	})
 }
 
 func assertDefinition(t testing.TB, dict Dictionary, word, definition string) {
